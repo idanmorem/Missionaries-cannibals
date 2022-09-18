@@ -1,6 +1,5 @@
 from aima.search import *
 
-
 class MissionariesCanibals(Problem):
 
     def __init__(self, initial, goal=(0, 0, 0)):
@@ -38,10 +37,10 @@ class MissionariesCanibals(Problem):
         # check there are enough missionaries/canibals where the boat is
         if state[2] == 1:
             new_state = (
-            state[0] - offset[possible_actions_index][0], state[1] - offset[possible_actions_index][1], 1 - state[2])
+                state[0] - offset[possible_actions_index][0], state[1] - offset[possible_actions_index][1], 1 - state[2])
         else:
             new_state = (
-            state[0] + offset[possible_actions_index][0], state[1] + offset[possible_actions_index][1], 1 - state[2])
+                state[0] + offset[possible_actions_index][0], state[1] + offset[possible_actions_index][1], 1 - state[2])
 
         return new_state
 
@@ -49,7 +48,11 @@ class MissionariesCanibals(Problem):
 
         return state == self.goal
 
+    def heuristics(self, node):
+
+        return node.state[0] + node.state[1] - 1
+
 
 if __name__ == '__main__':
-    bfs = breadth_first_graph_search(MissionariesCanibals((3, 3, 1)))
-    print(bfs.solution())
+    problem = MissionariesCanibals((3, 3, 1))
+    print(astar_search(problem))
